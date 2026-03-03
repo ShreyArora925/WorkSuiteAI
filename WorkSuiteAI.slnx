@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="WorkSuiteAI.Api/WorkSuiteAI.Api.csproj" />
+  <Project Path="WorkSuiteAI.Application/WorkSuiteAI.Application.csproj" />
+  <Project Path="WorkSuiteAI.Domain/WorkSuiteAI.Domain.csproj" />
+  <Project Path="WorkSuiteAI.Infrastructure/WorkSuiteAI.Infrastructure.csproj" />
+  <Project Path="WorkSuiteAI.Tests/WorkSuiteAI.Tests.csproj" />
+</Solution>
