@@ -30,11 +30,13 @@ namespace WorkSuiteAI.Infrastructure.Repositories
         public void Add(T entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)
         {
             _dbSet.Update(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -42,6 +44,7 @@ namespace WorkSuiteAI.Infrastructure.Repositories
             var entity = _dbSet.Find(id);
             if (entity != null)
                 _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }
