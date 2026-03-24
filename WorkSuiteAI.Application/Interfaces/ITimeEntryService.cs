@@ -7,10 +7,10 @@ namespace WorkSuiteAI.Application.Interfaces
 {
     public interface ITimeEntryService
     {
-        TimeEntryResponse ClockIn(CreateTimeEntryRequest request);
-        TimeEntryResponse ClockOut(ClockOutRequest request);
-        IEnumerable<TimeEntryResponse> GetByEmployeeId(int employeeId);
-        IEnumerable<TimeEntryResponse> GetAll();
-        TimeEntryResponse GetById(int id);
+        Task <TimeEntryResponse> ClockIn(CreateTimeEntryRequest request);
+        Task<TimeEntryResponse> ClockOut(ClockOutRequest request);
+        Task<IEnumerable<TimeEntryResponse>> GetByEmployeeId(int employeeId);
+        Task<IEnumerable<TimeEntryResponse>> GetAll();
+        Task<TimeEntryResponse> GetById(int id);
     }
 }

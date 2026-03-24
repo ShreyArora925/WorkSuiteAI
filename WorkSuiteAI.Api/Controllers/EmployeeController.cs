@@ -19,39 +19,39 @@ namespace WorkSuiteAI.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var employees = _employeeService.GetAllEmployees();
+            var employees = await _employeeService.GetAllEmployees();
             return Ok(employees);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var employee = _employeeService.GetEmployeeById(id);
+            var employee = await _employeeService.GetEmployeeById(id);
             if (employee == null)
                 return NotFound();
             return Ok(employee);
         }
 
         [HttpPost]
-        public IActionResult Create(CreateEmployeeRequest request)
+        public async Task<IActionResult> Create(CreateEmployeeRequest request)
         {
-            var created = _employeeService.CreateEmployee(request);
+            var created = await _employeeService.CreateEmployee(request);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Employee employee)
+        public async Task<IActionResult> Update(int id, Employee employee)
         {
-            _employeeService.Update(employee);
+            await _employeeService.Update(employee);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _employeeService.Delete(id);
+            await _employeeService.Delete(id);
             return NoContent();
         }
     }

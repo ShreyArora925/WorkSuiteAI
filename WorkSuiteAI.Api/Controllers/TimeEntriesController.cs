@@ -18,19 +18,19 @@ namespace WorkSuiteAI.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id) => Ok(_timeEntryService.GetById(id));
+        public async Task<IActionResult> GetById(int id) => Ok(await _timeEntryService.GetById(id));
 
         [HttpGet]
-        public IActionResult GetAll() => Ok(_timeEntryService.GetAll());
+        public async Task<IActionResult> GetAll() => Ok(await _timeEntryService.GetAll());
 
         [HttpGet("employee/{employeeId}")]
-        public IActionResult GetByEmployeeId(int employeeId) => Ok(_timeEntryService.GetByEmployeeId(employeeId));
+        public async Task<IActionResult> GetByEmployeeId(int employeeId) => Ok(await _timeEntryService.GetByEmployeeId(employeeId));
 
         [HttpPost("clockin")]
-        public IActionResult ClockIn(CreateTimeEntryRequest request) => Ok(_timeEntryService.ClockIn(request));
+        public async Task<IActionResult> ClockIn(CreateTimeEntryRequest request) => Ok(await _timeEntryService.ClockIn(request));
 
         [HttpPost("clockout")]
-        public IActionResult ClockOut(ClockOutRequest request ) => Ok(_timeEntryService.ClockOut(request));
+        public async Task<IActionResult> ClockOut(ClockOutRequest request ) => Ok(await _timeEntryService.ClockOut(request));
 
     }
 }

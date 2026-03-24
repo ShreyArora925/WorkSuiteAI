@@ -17,9 +17,9 @@ namespace WorkSuiteAI.Application.Services
             _repository = repository;
         }
 
-        public IEnumerable<EmployeeResponse> GetAllEmployees()
+        public async Task<IEnumerable<EmployeeResponse>> GetAllEmployees()
         {
-            var employee = _repository.GetAll();
+            var employee = await _repository.GetAll();
             return employee.Select(emp => new EmployeeResponse
             {
                 Id = emp.Id,
@@ -32,9 +32,9 @@ namespace WorkSuiteAI.Application.Services
             });
         }
 
-        public EmployeeResponse GetEmployeeById(int id)
+        public async Task<EmployeeResponse> GetEmployeeById(int id)
         {
-            var employee = _repository.GetById(id);
+            var employee = await _repository.GetById(id);
             if (employee == null) return null;
 
             return new EmployeeResponse
@@ -49,7 +49,7 @@ namespace WorkSuiteAI.Application.Services
             };
         }
 
-        public EmployeeResponse CreateEmployee(CreateEmployeeRequest request)
+        public async Task<EmployeeResponse> CreateEmployee(CreateEmployeeRequest request)
         {
             var employee = new Employee
             {
@@ -61,7 +61,7 @@ namespace WorkSuiteAI.Application.Services
             };
 
 
-            _repository.Add(employee);
+            await _repository.Add(employee);
 
             return new EmployeeResponse
             {
@@ -75,14 +75,14 @@ namespace WorkSuiteAI.Application.Services
             }; 
         }
 
-        public void Update(Employee employee)
+        public async Task Update(Employee employee)
         {
-            _repository.Update(employee);
+            await _repository.Update(employee);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _repository.Delete(id);
+            await _repository.Delete(id);
         }
     }
 }

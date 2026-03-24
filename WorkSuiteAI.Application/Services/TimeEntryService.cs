@@ -15,7 +15,7 @@ namespace WorkSuiteAI.Application.Services
         {
             _repository = repository;
         }
-        public TimeEntryResponse ClockIn(CreateTimeEntryRequest request)
+        public async Task <TimeEntryResponse> ClockIn(CreateTimeEntryRequest request)
         {
             var timeEntry = new TimeEntry
             {
@@ -24,39 +24,42 @@ namespace WorkSuiteAI.Application.Services
                 CreateAt = DateTime.UtcNow
             };
 
-            _repository.Add(timeEntry);
+            await _repository.Add(timeEntry);
 
             return MapToResponse(timeEntry);
         }
 
-        public TimeEntryResponse ClockOut(ClockOutRequest request)
+        public async Task<TimeEntryResponse> ClockOut(ClockOutRequest request)
         {
-            var timeEntry = _repository.GetById(request.TimeEntryId);
+            var timeEntry = await _repository.GetById(request.TimeEntryId);
             timeEntry.ClockOut = DateTime.UtcNow;
             timeEntry.HoursWorked = (decimal)(timeEntry.ClockOut - timeEntry.ClockIn).TotalHours;
             timeEntry.OverTime = timeEntry.HoursWorked > 8;
 
-            _repository.Update(timeEntry);
+            await _repository.Update(timeEntry);
             return MapToResponse(timeEntry);
         }
 
-        public IEnumerable<TimeEntryResponse> GetByEmployeeId(int employeeId)
+        public async Task<IEnumerable<TimeEntryResponse>> GetByEmployeeId(int employeeId)
         {
-            return _repository.GetAll()
+            var entries =  await _repository.GetAll();
+            return entries
                .Where(s => s.EmployeeID == employeeId)
                .Select(MapToResponse);
 
         }
 
-        public IEnumerable<TimeEntryResponse> GetAll()
+        public async Task<IEnumerable<TimeEntryResponse>> GetAll()
         {
-            return _repository.GetAll().Select(MapToResponse);
+            var entries =  await _repository.GetAll();
+            return entries
+                .Select(MapToResponse);
 
         }
 
-        public TimeEntryResponse GetById(int id)
+        public async Task<TimeEntryResponse> GetById(int id)
         {
-            var timeEntry = _repository.GetById(id);
+            var timeEntry = await _repository.GetById(id);
             return MapToResponse(timeEntry);
         }
 

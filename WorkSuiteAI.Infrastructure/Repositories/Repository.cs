@@ -17,34 +17,40 @@ namespace WorkSuiteAI.Infrastructure.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetById(int id)
         {
-            return _dbSet.Find(id);
+            var entity = await _dbSet.FindAsync(id);
+            if (entity == null)
+                throw new KeyNotFoundException($"Record with id {id} not found");
+            return entity;
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
             _dbSet.Add(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _dbSet.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public  async Task Delete(int id)
         {
-            var entity = _dbSet.Find(id);
+            var entity = await _dbSet.FindAsync(id);
             if (entity != null)
+            {
                 _dbSet.Remove(entity);
-            _context.SaveChanges();
+                await _context.SaveChangesAsync();
+            }
+               
         }
     }
 }
