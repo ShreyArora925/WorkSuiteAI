@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WorkSuiteAI.Application.Interfaces;
 using WorkSuiteAI.Application.Services;
 using WorkSuiteAI.Domain.Interfaces;
 using WorkSuiteAI.Infrastructure.Data;
@@ -19,8 +20,10 @@ builder.Services.AddCors();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ITimeEntryService, TimeEntryService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
 var app = builder.Build();
 
