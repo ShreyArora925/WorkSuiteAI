@@ -15,5 +15,6 @@ namespace WorkSuiteAI.Infrastructure.Data
         public DbSet<TimeEntry> TimeEntries { get; set; }
         public DbSet<PayrollRun> PayrollRuns { get; set; }
         public DbSet<PaySlip> paySlips { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
