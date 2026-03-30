@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using WorkSuiteAI.Application.DTO;
+using WorkSuiteAI.Application.Queries;
 using WorkSuiteAI.Domain.Entities;
 using WorkSuiteAI.Domain.Interfaces;
 
@@ -14,16 +16,19 @@ namespace WorkSuiteAI.Api.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IMediator _mediator;   
 
-        public EmployeesController(IEmployeeService employeeService)
+        public EmployeesController(IEmployeeService employeeService, IMediator mediator)
         {
             _employeeService = employeeService;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var employees = await _employeeService.GetAllEmployees();
+            //var employees = await _employeeService.GetAllEmployees();
+            var employees = await _mediator.Send(new GetAllEmployeesQuery());
             return Ok(employees);
         }
 
