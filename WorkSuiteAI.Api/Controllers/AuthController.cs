@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WorkSuiteAI.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WorkSuiteAI.Application.DTO;
+using WorkSuiteAI.Application.Interfaces;
 
 namespace WorkSuiteAI.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

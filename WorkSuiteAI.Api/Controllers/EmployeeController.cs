@@ -6,7 +6,7 @@ using WorkSuiteAI.Application.DTO;
 using WorkSuiteAI.Domain.Entities;
 using WorkSuiteAI.Domain.Interfaces;
 
-namespace WorkSuiteAI.Api.Controllers
+namespace WorkSuiteAI.Api.Controllers 
 {
     [Authorize]
     [ApiController]
