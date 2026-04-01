@@ -59,7 +59,7 @@ if (app.Environment.IsDevelopment())
 {
     //app.UseSwagger();
     //app.UseSwaggerUI();
-    app.MapOpenApi();
+    app.MapOpenApi();   
 }
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseHttpsRedirection();

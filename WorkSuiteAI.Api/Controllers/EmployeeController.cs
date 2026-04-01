@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using WorkSuiteAI.Application.Commands;
 using WorkSuiteAI.Application.DTO;
 using WorkSuiteAI.Application.Queries;
 using WorkSuiteAI.Domain.Entities;
@@ -35,7 +36,8 @@ namespace WorkSuiteAI.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var employee = await _employeeService.GetEmployeeById(id);
+            var employee = await _mediator.Send(new GetEmployeeByIdQuery { Id = id});
+                //await _employeeService.GetEmployeeById(id);
             if (employee == null)
                 return NotFound();
             return Ok(employee);
@@ -44,7 +46,9 @@ namespace WorkSuiteAI.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateEmployeeRequest request)
         {
-            var created = await _employeeService.CreateEmployee(request);
+            var created = await _mediator.Send(new CreateEmployeeCommand { Department = request.Department ,
+            Email = request.Email , FirstName = request.FirstName , LastName = request.LastName , HourlyRate = request.HourlyRate});
+                //await _employeeService.CreateEmployee(request);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
