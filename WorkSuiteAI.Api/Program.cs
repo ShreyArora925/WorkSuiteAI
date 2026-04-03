@@ -62,6 +62,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();   
 }
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

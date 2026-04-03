@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Dockerfile." />
+  </Folder>
   <Project Path="WorkSuiteAI.Api/WorkSuiteAI.Api.csproj" />
   <Project Path="WorkSuiteAI.Application/WorkSuiteAI.Application.csproj" />
   <Project Path="WorkSuiteAI.Domain/WorkSuiteAI.Domain.csproj" />
