@@ -8,7 +8,7 @@ using WorkSuiteAI.Application.Interfaces;
 
 namespace WorkSuiteAI.Api.Controllers
 {
-    [Authorize]
+  
     [ApiController]
     [Route("api/[controller]")]
     public class TimeEntriesController : ControllerBase

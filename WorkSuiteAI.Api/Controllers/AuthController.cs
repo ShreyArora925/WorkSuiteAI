@@ -5,7 +5,7 @@ using WorkSuiteAI.Application.Interfaces;
 
 namespace WorkSuiteAI.Api.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

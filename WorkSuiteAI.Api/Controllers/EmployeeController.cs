@@ -11,7 +11,6 @@ using WorkSuiteAI.Domain.Interfaces;
 
 namespace WorkSuiteAI.Api.Controllers 
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
