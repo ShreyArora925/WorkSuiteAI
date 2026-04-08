@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
+using WorkSuiteAI.Api.Middleware;
 using WorkSuiteAI.Application.Handlers;
 using WorkSuiteAI.Application.Interfaces;
 using WorkSuiteAI.Application.Queries;
@@ -70,6 +71,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
