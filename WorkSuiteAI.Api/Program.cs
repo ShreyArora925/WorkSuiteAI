@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
 using WorkSuiteAI.Api.Middleware;
+using WorkSuiteAI.Application.AI.Interfaces;
 using WorkSuiteAI.Application.Handlers;
 using WorkSuiteAI.Application.Interfaces;
 using WorkSuiteAI.Application.Queries;
@@ -14,6 +15,7 @@ using WorkSuiteAI.Application.Validators;
 using WorkSuiteAI.Domain.Interfaces;
 using WorkSuiteAI.Infrastructure.Data;
 using WorkSuiteAI.Infrastructure.Repositories;
+using WorkSuiteAI.Infrastructure.AI;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +38,12 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITimeEntryService, TimeEntryService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+builder.Services.AddHttpClient<IClaudeClient, ClaudeClient>(client =>
+{
+    client.BaseAddress = new Uri("https://api.anthropic.com/");
+    client.Timeout = TimeSpan.FromSeconds(60); // Claude can take time
+});
+builder.Services.AddScoped<IAIService, AIService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -71,7 +78,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 app.UseHttpsRedirection();
-app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
