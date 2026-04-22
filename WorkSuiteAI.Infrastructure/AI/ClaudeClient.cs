@@ -30,8 +30,8 @@ namespace WorkSuiteAI.Infrastructure.AI
 
             var request = new ClaudeRequest
             {
-                Model = "claude-sonnet-4-20250514",
-                MaxTokens = 1000,
+                Model = "claude-sonnet-4-6",
+                max_tokens= 4096,
                 Messages = new List<ClaudeMessage>
                 {
                     new ()
@@ -54,7 +54,7 @@ namespace WorkSuiteAI.Infrastructure.AI
         public async Task<ClaudeResponse> SendRequestAsync(ClaudeRequest request)
         {
             _logger.LogInformation("Sending request to Claude API. Model: {Model}, MaxTokens: {MaxTokens}",
-                request.Model, request.MaxTokens);
+                request.Model, request.max_tokens);
 
             try
             {

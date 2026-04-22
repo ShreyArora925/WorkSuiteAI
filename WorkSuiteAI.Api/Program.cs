@@ -33,11 +33,16 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAl
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddScoped<IJobAgentService, JobAgentService>();
+builder.Services.AddScoped<IJobSearchTool, JobSearchTool>();
+builder.Services.AddScoped<IResumeAnalyzer, ResumeAnalyzer>();
+builder.Services.AddScoped<ICoverLetterGenerator, CoverLetterGenerator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITimeEntryService, TimeEntryService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IClaudeClient, ClaudeClient>();
 builder.Services.AddHttpClient<IClaudeClient, ClaudeClient>(client =>
 {
     client.BaseAddress = new Uri("https://api.anthropic.com/");
@@ -62,7 +67,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
     });
 
-var app = builder.Build();
+                var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
