@@ -28,6 +28,7 @@ namespace WorkSuiteAI.Infrastructure.Repositories
         public async Task<IEnumerable<T>> GetAll()
         {
             return await _dbSet.ToListAsync();
+
         }
 
         public async Task Add(T entity)
